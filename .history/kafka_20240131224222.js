@@ -29,7 +29,7 @@ async function runKafkaConsumer() {
           await consumer.connect();
           console.log("Connected to Kafka");
           await consumer.subscribe({
-               topics: ["topic_comment", 'topic_reg'],
+               topics: ["topic_comment", 'topic_post', 'topic_reg'],
                fromBeginning: true,
           });
           await consumer.run({

@@ -21,22 +21,17 @@ async function pushToElasticsearch(data) {
      }
 }
 
-async function latest_post() {
-  try {
-    const result = await client.search({
-         index: "topic_post",
-         query: {
-              match: {
-                   postId: 10,
-              },
-         },
-    });
-    console.log(result.hits.hits);
-    
-  } catch (error) {
-    console.log(error)
-  }
+async function latest_post()) {
+     const result = await client.search({
+          index: "game-of-thrones",
+          query: {
+               match: {
+                    quote: "winter",
+               },
+          },
+     });
 
+     console.log(result.hits.hits);
 }
 
 module.exports = {

@@ -16,35 +16,24 @@ const kafka = new Kafka({
      createPartitioner: Partitioners.LegacyPartitioner,
 });
 
-const consumer = kafka.consumer({ groupId: "spec-group" });
-const sampleData = {
-        index: 'milos_name',
-        body: {
-        }
-      };
-
+const consumer = kafka.consumer({ groupId: "milos-group" });
 
 async function runKafkaConsumer() {
      try {
           await consumer.connect();
           console.log("Connected to Kafka");
           await consumer.subscribe({
-               topics: ["topic_comment", 'topic_reg'],
+               topics: ["topic_comment"],
                fromBeginning: true,
           });
           await consumer.run({
                eachMessage: async ({ topic, partition, message }) => {
                     try {
-
                          const parsedMessage = JSON.parse(
                               message.value.toString("utf8")
                          );
                          console.log("Received message:", parsedMessage);
-
-                         await pushToElasticsearch({
-                            index: topic,
-                            body: parsedMessage
-                         });
+                         pushToElasticsearch
                     } catch (error) {
                          console.log(error);
                     }
@@ -68,13 +57,3 @@ module.exports = {
      runKafkaConsumer,
      disconnectKafkaConsumer,
 };
-
-
-// await pushToElasticsearch(sampleData)
-// const sampleData = {
-//     index: 'your_index_name',
-//     body: {
-//       user: 'John Doe',
-//       message: 'Hello, Elasticsearch!'
-//     }
-//   };

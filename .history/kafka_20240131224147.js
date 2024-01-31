@@ -29,7 +29,7 @@ async function runKafkaConsumer() {
           await consumer.connect();
           console.log("Connected to Kafka");
           await consumer.subscribe({
-               topics: ["topic_comment", 'topic_reg'],
+               topics: ["topic_comment", 'topic_post'],
                fromBeginning: true,
           });
           await consumer.run({
@@ -42,7 +42,7 @@ async function runKafkaConsumer() {
                          console.log("Received message:", parsedMessage);
 
                          await pushToElasticsearch({
-                            index: topic,
+                            index: 'milos_name',
                             body: parsedMessage
                          });
                     } catch (error) {

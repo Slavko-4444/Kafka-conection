@@ -31,12 +31,12 @@ async function latest_post() {
               },
          },
     });
-    console.log(result.hits.hits);
     
   } catch (error) {
-    console.log(error)
+    
   }
 
+     console.log(result.hits.hits);
 }
 
 module.exports = {

@@ -1,6 +1,6 @@
 const {runKafkaConsumer, disconnectKafkaConsumer} = require('./kafka')
 const {latest_post} = require('./elastic')
 
-await runKafkaConsumer()
+runKafkaConsumer()
 
-latest_post()
+awlatest_post()

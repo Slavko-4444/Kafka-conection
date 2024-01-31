@@ -29,29 +29,24 @@ async function runKafkaConsumer() {
           await consumer.connect();
           console.log("Connected to Kafka");
           await consumer.subscribe({
-               topics: ["topic_comment", 'topic_reg'],
+               topics: ["topic_comment"],
                fromBeginning: true,
           });
           await consumer.run({
                eachMessage: async ({ topic, partition, message }) => {
                     try {
-
                          const parsedMessage = JSON.parse(
                               message.value.toString("utf8")
                          );
                          console.log("Received message:", parsedMessage);
 
                          await pushToElasticsearch({
-                            index: topic,
+                            index: 'milos_name',
                             body: parsedMessage
-                         });
-                    } catch (error) {
-                         console.log(error);
-                    }
-               },
-          });
-     } catch (err) {
-          console.error("Error connecting to Kafka:", error);
+                         });curl -L -O https://artifacts.elastic.co/downloads/beats/elastic-agent/elastic-agent-8.12.0-linux-x86_64.tar.gz
+tar xzvf elastic-agent-8.12.0-linux-x86_64.tar.gz
+cd elastic-agent-8.12.0-linux-x86_64
+sudo ./elastic-agent install --url=https://a4c408640d834369ac4d37e0a3e2e065.fleet.europe-west3.gcp.cloud.es.io:443 --enrollment-token=Rlk1bVlZMEJMUS1UMlN0TXBaYTE6ZzdfX0paUWRUZmFDZ0dmek90TWpuUQ==
      }
 }
 

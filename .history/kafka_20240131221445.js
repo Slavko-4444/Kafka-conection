@@ -29,21 +29,19 @@ async function runKafkaConsumer() {
           await consumer.connect();
           console.log("Connected to Kafka");
           await consumer.subscribe({
-               topics: ["topic_comment", 'topic_reg'],
+               topics: ["topic_comment"],
                fromBeginning: true,
           });
           await consumer.run({
                eachMessage: async ({ topic, partition, message }) => {
                     try {
-
                          const parsedMessage = JSON.parse(
                               message.value.toString("utf8")
                          );
                          console.log("Received message:", parsedMessage);
 
                          await pushToElasticsearch({
-                            index: topic,
-                            body: parsedMessage
+                            inde
                          });
                     } catch (error) {
                          console.log(error);
